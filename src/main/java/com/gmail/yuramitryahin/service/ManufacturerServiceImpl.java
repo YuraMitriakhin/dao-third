@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class ManufacturerServiceImpl implements ManufacturerService {
     @Inject
-    ManufacturerDao manufacturerDao;
+    private ManufacturerDao manufacturerDao;
 
     @Override
     public Manufacturer create(Manufacturer manufacturer) {
@@ -18,8 +18,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 
     @Override
     public Manufacturer get(Long id) {
-        return manufacturerDao.get(id)
-                .orElseThrow(() -> new RuntimeException("Manufacturer not found!"));
+        return manufacturerDao.get(id).get();
     }
 
     @Override
