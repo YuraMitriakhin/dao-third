@@ -3,7 +3,6 @@ package com.gmail.yuramitryahin.dao;
 import com.gmail.yuramitryahin.db.Storage;
 import com.gmail.yuramitryahin.lib.Dao;
 import com.gmail.yuramitryahin.modal.Car;
-import com.gmail.yuramitryahin.modal.Driver;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -39,18 +38,6 @@ public class CarDaoImpl implements CarDao {
     @Override
     public boolean delete(Long id) {
         return Storage.cars.removeIf(c -> c.getId().equals(id));
-    }
-
-    @Override
-    public void addDriverToCar(Driver driver, Car car) {
-        car.getDrivers().add(driver);
-        Storage.cars.set(findCarIndex(car), car);
-    }
-
-    @Override
-    public void removeDriverFromCar(Driver driver, Car car) {
-        car.getDrivers().remove(driver);
-        Storage.cars.set(findCarIndex(car), car);
     }
 
     @Override
