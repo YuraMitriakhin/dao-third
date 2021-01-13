@@ -1,0 +1,8 @@
+CREATE SCHEMA `dao` DEFAULT CHARACTER SET utf8 ;
+
+CREATE TABLE `dao`.`manufacture` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(150) NOT NULL,
+  `country` VARCHAR(100) NOT NULL,
+  `deleted` TINYINT NOT NULL,
+  PRIMARY KEY (`id`));
