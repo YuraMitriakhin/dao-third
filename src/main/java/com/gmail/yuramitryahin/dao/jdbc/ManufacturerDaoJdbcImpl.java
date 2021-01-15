@@ -30,7 +30,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
                 manufacturer.setId(resultSet.getObject("id", Long.class));
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't add manufacture " + manufacturer, e);
+            throw new DataProcessingException("Can't add manufacturer " + manufacturer, e);
         }
         return manufacturer;
     }
@@ -46,7 +46,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
                 return getManufacturer(resultSet);
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't find manufacture by id " + id, e);
+            throw new DataProcessingException("Can't find manufacturer by id " + id, e);
         }
         return Optional.empty();
     }
@@ -64,7 +64,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Can't find any manufacture", e);
+            throw new RuntimeException("Can't find any manufacturer", e);
         }
         return manufacturers;
     }
@@ -79,7 +79,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
             preparedStatement.setLong(3, manufacturer.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't update manufacture " + manufacturer, e);
+            throw new DataProcessingException("Can't update manufacturer " + manufacturer, e);
         }
         return manufacturer;
     }
@@ -92,7 +92,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
             preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't delete manufacture by id " + id, e);
+            throw new DataProcessingException("Can't delete manufacturer by id " + id, e);
         }
     }
 
