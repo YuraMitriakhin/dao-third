@@ -1,14 +1,12 @@
 package com.gmail.yuramitryahin.dao;
 
 import com.gmail.yuramitryahin.db.Storage;
-import com.gmail.yuramitryahin.lib.Dao;
 import com.gmail.yuramitryahin.modal.Driver;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-@Dao
 public class DriverDaoImpl implements DriverDao {
     @Override
     public Driver create(Driver driver) {
