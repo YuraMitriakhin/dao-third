@@ -43,7 +43,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                return getManufacturer(resultSet);
+                return Optional.ofNullable(getManufacturer(resultSet));
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Can't find manufacturer by id " + id, e);
@@ -59,8 +59,8 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
                  PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                if (getManufacturer(resultSet).isPresent()) {
-                    manufacturers.add(getManufacturer(resultSet).get());
+                if (getManufacturer(resultSet) != null) {
+                    manufacturers.add(getManufacturer(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -96,10 +96,10 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
         }
     }
 
-    private Optional<Manufacturer> getManufacturer(ResultSet resultSet) throws SQLException {
+    private Manufacturer getManufacturer(ResultSet resultSet) throws SQLException {
         Long manufacturerId = resultSet.getObject("id", Long.class);
         String name = resultSet.getString("name");
         String country = resultSet.getString("country");
-        return Optional.ofNullable(new Manufacturer(manufacturerId, name, country));
+        return new Manufacturer(manufacturerId, name, country);
     }
 }
