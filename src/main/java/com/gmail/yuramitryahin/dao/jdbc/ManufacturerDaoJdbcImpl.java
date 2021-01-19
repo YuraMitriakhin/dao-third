@@ -26,7 +26,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
             preparedStatement.setString(2, manufacturer.getCountry());
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 manufacturer.setId(resultSet.getObject("id", Long.class));
             }
         } catch (SQLException e) {
@@ -59,9 +59,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
                  PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                if (getManufacturer(resultSet) != null) {
-                    manufacturers.add(getManufacturer(resultSet));
-                }
+                manufacturers.add(getManufacturer(resultSet));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Can't find any manufacturer", e);

@@ -28,7 +28,7 @@ public class CarDaoJdbcImpl implements CarDao {
             preparedStatement.setLong(2, car.getManufacturer().getId());
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 car.setId(resultSet.getObject("id", Long.class));
             }
         } catch (SQLException e) {
@@ -67,9 +67,7 @@ public class CarDaoJdbcImpl implements CarDao {
                  PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                if (getCar(resultSet) != null) {
-                    cars.add(getCar(resultSet));
-                }
+                cars.add(getCar(resultSet));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Can't find any cars", e);
@@ -129,9 +127,7 @@ public class CarDaoJdbcImpl implements CarDao {
             preparedStatement.setLong(1, driverId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                if (getCar(resultSet) != null) {
-                    cars.add(getCar(resultSet));
-                }
+                cars.add(getCar(resultSet));
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Can't delete car by driver id " + driverId, e);
@@ -157,7 +153,7 @@ public class CarDaoJdbcImpl implements CarDao {
                  PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, carId);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (getDriver(resultSet) != null) {
+            while (resultSet.next()) {
                 drivers.add(getDriver(resultSet));
             }
         } catch (SQLException e) {
