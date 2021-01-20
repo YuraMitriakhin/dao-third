@@ -15,6 +15,13 @@ public class Car {
         this.drivers = new ArrayList<>();
     }
 
+    public Car(Long id, String model, Manufacturer manufacturer) {
+        this.id = id;
+        this.model = model;
+        this.manufacturer = manufacturer;
+        this.drivers = new ArrayList<>();
+    }
+
     public Long getId() {
         return id;
     }
