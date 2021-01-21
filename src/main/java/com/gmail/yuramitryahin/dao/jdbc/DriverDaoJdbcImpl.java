@@ -18,7 +18,7 @@ import java.util.Optional;
 public class DriverDaoJdbcImpl implements DriverDao {
     @Override
     public Driver create(Driver driver) {
-        String query = "INSERT INTO drivers (name, license_number) VALUES (?, ?)";
+        String query = "INSERT INTO drivers (name, liсense_number) VALUES (?, ?)";
         try (Connection connection = ConnectionUtil.getConnection();
                  PreparedStatement preparedStatement =
                          connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -27,7 +27,7 @@ public class DriverDaoJdbcImpl implements DriverDao {
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
-                driver.setId(resultSet.getObject("id", Long.class));
+                driver.setId(resultSet.getObject(1,Long.class));
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Can't add driver " + driver, e);
@@ -97,7 +97,7 @@ public class DriverDaoJdbcImpl implements DriverDao {
     private Driver getDriver(ResultSet resultSet) throws SQLException {
         Long driverId = resultSet.getObject("id", Long.class);
         String name = resultSet.getString("name");
-        String licenseNumber = resultSet.getString("license_number");
+        String licenseNumber = resultSet.getString("liсense_number");
         return new Driver(driverId, name, licenseNumber);
     }
 }

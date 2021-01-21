@@ -29,7 +29,7 @@ public class CarDaoJdbcImpl implements CarDao {
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             while (resultSet.next()) {
-                car.setId(resultSet.getObject("id", Long.class));
+                car.setId(resultSet.getObject(1, Long.class));
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Can't add car " + car, e);
@@ -39,9 +39,9 @@ public class CarDaoJdbcImpl implements CarDao {
 
     @Override
     public Optional<Car> get(Long id) {
-        String query = "SELECT c.id AS car_id, c.model, m.id AS manufacturer_id, m.name, m.country"
+        String query = "SELECT c.id AS car_id, c.model, m.id AS manufacturer_id, m.name, m.country "
                 + "FROM cars c "
-                + "INNER JOIN manufacturer m ON c.manufacturer_id = m.id"
+                + "INNER JOIN manufacturer m ON c.manufacturer_id = m.id "
                 + "WHERE c.id = ? AND c.deleted = FALSE;";
         try (Connection connection = ConnectionUtil.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -78,7 +78,7 @@ public class CarDaoJdbcImpl implements CarDao {
     @Override
     public Car update(Car car) {
         String delete = "DELETE FROM car_drivers WHERE car_id = ?";
-        String insert = "INSERT INTO cars_drivers (driver_id, car_id) VALUES (?, ?)";
+        String insert = "INSERT INTO car_drivers (driver_id, car_id) VALUES (?, ?)";
         String update = "UPDATE cars SET model=?, manufacturer_id=? WHERE id=? AND deleted=false";
         try (Connection connection = ConnectionUtil.getConnection();
                  PreparedStatement deleteStatement = connection.prepareStatement(delete);
@@ -136,7 +136,7 @@ public class CarDaoJdbcImpl implements CarDao {
     }
 
     private Car getCar(ResultSet resultSet) throws SQLException {
-        Long driverId = resultSet.getObject("id", Long.class);
+        Long driverId = resultSet.getObject(1, Long.class);
         String model = resultSet.getString("model");
         Manufacturer manufacturer = getManufacturer(resultSet);
         Car car = new Car(driverId, model, manufacturer);
@@ -163,16 +163,16 @@ public class CarDaoJdbcImpl implements CarDao {
     }
 
     private Manufacturer getManufacturer(ResultSet resultSet) throws SQLException {
-        Long manufacturerId = resultSet.getObject("id", Long.class);
+        Long manufacturerId = resultSet.getObject(1, Long.class);
         String name = resultSet.getString("name");
         String country = resultSet.getString("country");
         return new Manufacturer(manufacturerId, name, country);
     }
 
     private Driver getDriver(ResultSet resultSet) throws SQLException {
-        Long driverId = resultSet.getObject("id", Long.class);
+        Long driverId = resultSet.getObject(1, Long.class);
         String name = resultSet.getString("name");
-        String licenseNumber = resultSet.getString("license_number");
+        String licenseNumber = resultSet.getString("liсense_number");
         return new Driver(driverId, name, licenseNumber);
     }
 }
