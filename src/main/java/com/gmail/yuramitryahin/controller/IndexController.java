@@ -1,4 +1,4 @@
-package com.gmail.yuramitryahin.controllers;
+package com.gmail.yuramitryahin.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

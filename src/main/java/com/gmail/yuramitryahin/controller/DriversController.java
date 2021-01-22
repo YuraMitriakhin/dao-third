@@ -1,4 +1,4 @@
-package com.gmail.yuramitryahin.controllers;
+package com.gmail.yuramitryahin.controller;
 
 import com.gmail.yuramitryahin.lib.Injector;
 import com.gmail.yuramitryahin.service.DriverService;
