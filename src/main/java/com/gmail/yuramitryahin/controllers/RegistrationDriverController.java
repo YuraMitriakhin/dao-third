@@ -22,7 +22,7 @@ public class RegistrationDriverController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String name = req.getParameter("name");
+        String name = req.getParameter("driver_name");
         String licenseNumber = req.getParameter("license number");
         driverService.create(new Driver(name, licenseNumber));
         resp.sendRedirect(req.getContextPath() + "/");

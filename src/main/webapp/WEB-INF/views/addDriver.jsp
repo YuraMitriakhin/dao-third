@@ -6,7 +6,7 @@
 </head>
 <body>
 <form method="post" action="${pageContext.request.contextPath}/driver/register">
-    Input name <input type="text" name="name" placeholder="name" required>
+    Input name <input type="text" name="driver_name" placeholder="name" required>
     <br>Input license number <input type="text" name="license number" placeholder=" license number" required>
     <br><button type="submit">Add driver</button>
 </form>

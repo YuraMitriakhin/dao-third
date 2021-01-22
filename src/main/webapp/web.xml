@@ -20,7 +20,7 @@
 
     <servlet-mapping>
         <servlet-name>drivers</servlet-name>
-        <url-pattern>/drivers/all</url-pattern>
+        <url-pattern>/drivers</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -55,7 +55,7 @@
 
     <servlet>
         <servlet-name>registrationCar</servlet-name>
-        <servlet-class>com.gmail.yuramitryahin.controllers.RegistrationCarController</servlet-class>
+        <servlet-class>com.gmail.yuramitryahin.controllers.CreateCarController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -75,11 +75,11 @@
 
     <servlet-mapping>
         <servlet-name>addDriverToCar</servlet-name>
-        <url-pattern>/driver/add/to/car</url-pattern>
+        <url-pattern>/drivers/cars/add</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>addDriverToCar</servlet-name>
-        <url-pattern>/driver/register/to/car</url-pattern>
+        <url-pattern>/driver/car/register</url-pattern>
     </servlet-mapping>
 </web-app>
