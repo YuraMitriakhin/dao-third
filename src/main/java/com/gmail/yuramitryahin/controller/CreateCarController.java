@@ -5,9 +5,7 @@ import com.gmail.yuramitryahin.modal.Car;
 import com.gmail.yuramitryahin.modal.Manufacturer;
 import com.gmail.yuramitryahin.service.CarService;
 import com.gmail.yuramitryahin.service.ManufacturerService;
-
 import java.io.IOException;
-import java.util.NoSuchElementException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
