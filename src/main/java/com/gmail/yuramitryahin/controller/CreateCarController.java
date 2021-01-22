@@ -5,6 +5,7 @@ import com.gmail.yuramitryahin.modal.Car;
 import com.gmail.yuramitryahin.modal.Manufacturer;
 import com.gmail.yuramitryahin.service.CarService;
 import com.gmail.yuramitryahin.service.ManufacturerService;
+
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import javax.servlet.ServletException;
@@ -28,15 +29,9 @@ public class CreateCarController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String model = req.getParameter("model");
-        Long idManufacturer = Long.parseLong(req.getParameter("idManufacturer"));
-        try {
-            Manufacturer manufacturer = manufacturerService.get(idManufacturer);
-            carService.create(new Car(model, manufacturer));
-            resp.sendRedirect(req.getContextPath() + "/");
-        } catch (NoSuchElementException e) {
-            req.setAttribute("message", "Wrong manufacturer id " + idManufacturer
-                    + ", please input correct id!");
-            req.getRequestDispatcher("/WEB-INF/views/addCar.jsp").forward(req, resp);
-        }
+        Long idManufacturer = Long.parseLong(req.getParameter("id_manufacturer"));
+        Manufacturer manufacturer = manufacturerService.get(idManufacturer);
+        carService.create(new Car(model, manufacturer));
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 }

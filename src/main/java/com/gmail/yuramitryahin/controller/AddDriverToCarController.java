@@ -5,6 +5,7 @@ import com.gmail.yuramitryahin.modal.Car;
 import com.gmail.yuramitryahin.modal.Driver;
 import com.gmail.yuramitryahin.service.CarService;
 import com.gmail.yuramitryahin.service.DriverService;
+
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import javax.servlet.ServletException;
@@ -29,17 +30,10 @@ public class AddDriverToCarController extends HttpServlet {
             throws ServletException, IOException {
         Long driverId = Long.valueOf(req.getParameter("driver_id"));
         Long carId = Long.valueOf(req.getParameter("car_id"));
-        try {
-            Car car = carService.get(carId);
-            Driver driver = driverService.get(driverId);
-            car.getDrivers().add(driver);
-            carService.update(car);
-            resp.sendRedirect(req.getContextPath() + "/");
-        } catch (NoSuchElementException e) {
-            req.setAttribute("message", "Wrong car id " + carId + " or driver id "
-                    + driverId + " please input correct id!");
-            req.getRequestDispatcher("/WEB-INF/views/addDriverToCar.jsp")
-                    .forward(req, resp);
-        }
+        Car car = carService.get(carId);
+        Driver driver = driverService.get(driverId);
+        car.getDrivers().add(driver);
+        carService.update(car);
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 }
