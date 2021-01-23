@@ -5,5 +5,11 @@
 </head>
 <body>
 <h1>Hello world!</h1>
+<br><h3><a href="${pageContext.request.contextPath}/drivers">All drivers</a>
+<a href="${pageContext.request.contextPath}/driver/add">Add driver</a>
+<a href="${pageContext.request.contextPath}/manufacturer/add">Add manufacturer</a>
+    <a href="${pageContext.request.contextPath}/car/add">Add car</a>
+    <a href="${pageContext.request.contextPath}/drivers/cars/add">Add car</a>
+</h3>
 </body>
 </html>
