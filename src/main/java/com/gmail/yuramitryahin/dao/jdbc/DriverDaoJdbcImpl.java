@@ -98,7 +98,25 @@ public class DriverDaoJdbcImpl implements DriverDao {
         Long driverId = resultSet.getObject("id", Long.class);
         String name = resultSet.getString("name");
         String licenseNumber = resultSet.getString("liсense_number");
-        return new Driver(driverId, name, licenseNumber);
+        String login = resultSet.getString("login");
+        String password = resultSet.getString("password");
+        return new Driver(driverId, name, licenseNumber, login, password);
+    }
+
+    @Override
+    public Optional<Driver> findByLogin(String login) {
+        String query = "SELECT * FROM drivers WHERE login=? AND deleted=false";
+        try (Connection connection = ConnectionUtil.getConnection();
+                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                return Optional.ofNullable(getDriver(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new DataProcessingException("Can't find driver by login " + login, e);
+        }
+        return Optional.empty();
     }
 }
 

@@ -118,7 +118,7 @@ public class CarDaoJdbcImpl implements CarDao {
     public List<Car> getAllByDriver(Long driverId) {
         String query = "SELECT cd.car_id, c.model, c.manufacturer_id "
                 + "FROM car_drivers cd "
-                + "INNER JOIN cars c"
+                + "INNER JOIN cars c "
                 + "ON c.id = cd.car_id "
                 + "WHERE cd.driver_id = ? AND c.deleted = FALSE";
         List<Car> cars = new ArrayList<>();
@@ -130,7 +130,7 @@ public class CarDaoJdbcImpl implements CarDao {
                 cars.add(getCar(resultSet));
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't delete car by driver id " + driverId, e);
+            throw new DataProcessingException("Can't find cars by driver id " + driverId, e);
         }
         return cars;
     }
@@ -138,7 +138,9 @@ public class CarDaoJdbcImpl implements CarDao {
     private Car getCar(ResultSet resultSet) throws SQLException {
         Long driverId = resultSet.getObject(1, Long.class);
         String model = resultSet.getString("model");
-        Manufacturer manufacturer = getManufacturer(resultSet);
+        Manufacturer manufacturer = getManufacturer(resultSet
+                .getObject("manufacturer_id", Long.class))
+                .get();
         Car car = new Car(driverId, model, manufacturer);
         car.setDrivers(getListDrivers(driverId));
         return car;
@@ -162,11 +164,21 @@ public class CarDaoJdbcImpl implements CarDao {
         return drivers;
     }
 
-    private Manufacturer getManufacturer(ResultSet resultSet) throws SQLException {
-        Long manufacturerId = resultSet.getObject(1, Long.class);
-        String name = resultSet.getString("name");
-        String country = resultSet.getString("country");
-        return new Manufacturer(manufacturerId, name, country);
+    private Optional<Manufacturer> getManufacturer(Long manufacturerId) throws SQLException {
+        String query = "SELECT * FROM manufacturer WHERE id=? AND deleted=false";
+        try (Connection connection = ConnectionUtil.getConnection();
+                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, manufacturerId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                String country = resultSet.getString("country");
+                return Optional.of(new Manufacturer(manufacturerId, name, country));
+            }
+        } catch (SQLException e) {
+            throw new DataProcessingException("Can't find manufacturer by id " + manufacturerId, e);
+        }
+        return Optional.empty();
     }
 
     private Driver getDriver(ResultSet resultSet) throws SQLException {
