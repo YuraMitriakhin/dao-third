@@ -5,10 +5,81 @@
          version="3.1">
     <servlet>
         <servlet-name>index</servlet-name>
-        <servlet-class>com.gmail.yuramitryahin.controllers.IndexController</servlet-class>
+        <servlet-class>com.gmail.yuramitryahin.controller.IndexController</servlet-class>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>index</servlet-name>
-        <url-pattern>/index</url-pattern>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>drivers</servlet-name>
+        <servlet-class>com.gmail.yuramitryahin.controller.DriversController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>drivers</servlet-name>
+        <url-pattern>/drivers</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>registrationDrivers</servlet-name>
+        <servlet-class>com.gmail.yuramitryahin.controller.RegistrationDriverController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>registrationDrivers</servlet-name>
+        <url-pattern>/driver/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>registrationDrivers</servlet-name>
+        <url-pattern>/driver/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>registrationManufacturer</servlet-name>
+        <servlet-class>com.gmail.yuramitryahin.controller.RegistrationManufacturerController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>registrationManufacturer</servlet-name>
+        <url-pattern>/manufacturer/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>registrationManufacturer</servlet-name>
+        <url-pattern>/manufacturer/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>registrationCar</servlet-name>
+        <servlet-class>com.gmail.yuramitryahin.controller.CreateCarController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>registrationCar</servlet-name>
+        <url-pattern>/car/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>registrationCar</servlet-name>
+        <url-pattern>/car/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addDriverToCar</servlet-name>
+        <servlet-class>com.gmail.yuramitryahin.controller.AddDriverToCarController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addDriverToCar</servlet-name>
+        <url-pattern>/drivers/cars/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>addDriverToCar</servlet-name>
+        <url-pattern>/driver/car/register</url-pattern>
     </servlet-mapping>
 </web-app>

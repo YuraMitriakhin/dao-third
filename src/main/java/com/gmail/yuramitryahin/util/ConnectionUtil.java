@@ -7,6 +7,14 @@ import java.util.Properties;
 
 public class ConnectionUtil {
 
+    static {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Can't find SQL Driver", e);
+        }
+    }
+
     public static Connection getConnection() {
         Properties properties = new Properties();
         properties.put("user", "root");
