@@ -5,7 +5,7 @@ import com.gmail.yuramitryahin.lib.Injector;
 import com.gmail.yuramitryahin.lib.Service;
 import com.gmail.yuramitryahin.modal.Driver;
 import com.gmail.yuramitryahin.service.DriverService;
-import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -16,11 +16,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public Driver login(String login, String password)
             throws AuthenticationException {
-        Driver driver = driverService.findByLogin(login).orElseThrow(()
-                -> new AuthenticationException("Incorrect username or password"));
-
-        if (Objects.equals(driver.getPassword(), password)) {
-            return driver;
+        Optional<Driver> driver = driverService.findByLogin(login);
+        if (driver.isPresent() && driver.get().getPassword().equals(password)) {
+            return driver.get();
         }
         throw new AuthenticationException("Incorrect username or password");
     }

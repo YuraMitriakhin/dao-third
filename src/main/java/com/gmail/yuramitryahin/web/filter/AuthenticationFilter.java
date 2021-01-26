@@ -1,6 +1,8 @@
 package com.gmail.yuramitryahin.web.filter;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,9 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AuthenticationFilter implements Filter {
     private static final String DRIVER_ID = "driver_id";
+    private Set<String> freeLinks;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        freeLinks = new HashSet<>();
+        freeLinks.add("/login");
+        freeLinks.add("/driver/registration");
     }
 
     @Override
@@ -24,7 +30,7 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
         String url = req.getServletPath();
-        if (url.equals("/login") || url.equals("/driver/registration")) {
+        if (freeLinks.contains(url)) {
             filterChain.doFilter(req, resp);
             return;
         }
